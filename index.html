@@ -133,12 +133,11 @@
     <div class="container">
         <h1>RedaTech</h1>
 
-        <label for="tema">Escolha um tema:</label>
-        <select id="tema">
-            <option value="meioAmbiente">Meio Ambiente</option>
-            <option value="tecnologia">Tecnologia e Sociedade</option>
-            <option value="educacao">Educação no Brasil</option>
-            <option value="saudeMental">Saúde Mental</option>
+        <label for="nivel">Escolha o nível da redação:</label>
+        <select id="nivel">
+            <option value="profissional">Nível Profissional</option>
+            <option value="notaMil">Nível Nota Mil ENEM</option>
+            <option value="estudante">Nível Estudante</option>
         </select>
 
         <label>
@@ -150,6 +149,7 @@
             <button onclick="gerarRedacao()">Gerar Redação</button>
             <button onclick="copiarRedacao()">Copiar Texto</button>
             <button class="apagar" onclick="apagarRedacao()">Apagar Redação</button>
+            <button onclick="gerarRedacaoComIA()">Gerar Redação com IA</button>
         </div>
 
         <div id="output"></div>
@@ -161,22 +161,19 @@
 
     <script>
         async function gerarRedacao() {
-            const tema = document.getElementById("tema").value;
+            const nivel = document.getElementById("nivel").value;
             const humanizar = document.getElementById("humanizar").checked;
             
             let prompt = "";
-            switch (tema) {
-                case "meioAmbiente":
-                    prompt = "Escreva uma redação sobre preservação do meio ambiente.";
+            switch (nivel) {
+                case "profissional":
+                    prompt = "Escreva uma redação complexa, utilizando uma linguagem sofisticada e argumentos profundos. Aborde o tema com uma visão crítica e avançada.";
                     break;
-                case "tecnologia":
-                    prompt = "Escreva uma redação sobre a relação entre tecnologia e sociedade.";
+                case "notaMil":
+                    prompt = "Escreva uma redação de nível ENEM, com boa coesão e coerência, abordando o tema de forma clara, mas com argumentos bem estruturados.";
                     break;
-                case "educacao":
-                    prompt = "Escreva uma redação sobre a educação no Brasil e seus desafios.";
-                    break;
-                case "saudeMental":
-                    prompt = "Escreva uma redação sobre saúde mental e a importância do cuidado com a mente.";
+                case "estudante":
+                    prompt = "Escreva uma redação simples, utilizando uma linguagem acessível e direta, adequada para um estudante em fase de aprendizado.";
                     break;
                 default:
                     prompt = "Escreva uma redação sobre um tema relevante.";
@@ -210,6 +207,11 @@
                 console.error("Erro ao gerar redação:", error);
                 document.getElementById("output").innerText = "Houve um erro ao gerar a redação. Tente novamente.";
             }
+        }
+
+        function gerarRedacaoComIA() {
+            alert('Gerando redação com IA... (simulação)');
+            gerarRedacao();
         }
 
         function copiarRedacao() {
