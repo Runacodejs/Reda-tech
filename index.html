@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>RedaTech</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style>
         * {
             box-sizing: border-box;
@@ -13,7 +13,8 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, #c3ecff, #e2f3ff);
+            background: #121212;
+            color: #e0e0e0;
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -22,44 +23,65 @@
         }
 
         .container {
-            background: #ffffff;
+            background: #1e1e1e;
             width: 90%;
             max-width: 800px;
             padding: 40px;
             border-radius: 10px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
         }
 
         h1 {
             text-align: center;
-            color: #333;
+            color: #fff;
             margin-bottom: 30px;
         }
 
         label {
             font-weight: bold;
             font-size: 18px;
+            color: #ddd;
+            display: block;
+            margin-top: 20px;
+            cursor: pointer;
         }
 
-        select, button {
+        input[type="checkbox"] {
+            margin-right: 8px;
+            cursor: pointer;
+        }
+
+        select,
+        button {
             width: 100%;
             padding: 12px;
             margin-top: 10px;
             font-size: 16px;
             border-radius: 6px;
-            border: 1px solid #ccc;
+            border: 1px solid #444;
+            background-color: #2c2c2c;
+            color: #eee;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        select:hover,
+        select:focus {
+            background-color: #3a3a3a;
+            border-color: #666;
+            outline: none;
+            color: #fff;
         }
 
         button {
             background-color: #007BFF;
-            color: white;
             border: none;
-            transition: background-color 0.3s;
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
         }
 
         button:hover {
             background-color: #0056b3;
-            cursor: pointer;
         }
 
         button.apagar {
@@ -72,12 +94,14 @@
 
         #output {
             margin-top: 25px;
-            background-color: #f9f9f9;
+            background-color: #2c2c2c;
             padding: 20px;
             border-radius: 6px;
-            border: 1px solid #ccc;
+            border: 1px solid #444;
             white-space: pre-line;
             font-size: 16px;
+            color: #ddd;
+            min-height: 200px;
         }
 
         .btn-group {
@@ -101,7 +125,7 @@
             margin-top: 30px;
             padding: 15px;
             font-size: 14px;
-            color: #666;
+            color: #888;
         }
     </style>
 </head>
@@ -116,6 +140,11 @@
             <option value="educacao">Educação no Brasil</option>
             <option value="saudeMental">Saúde Mental</option>
         </select>
+
+        <label>
+            <input type="checkbox" id="humanizar" />
+            Humanizar texto (linguagem mais informal)
+        </label>
 
         <div class="btn-group">
             <button onclick="gerarRedacao()">Gerar Redação</button>
@@ -177,10 +206,57 @@ Conclusão:
 Em vista disso, é necessário romper com o estigma que cerca as doenças mentais e promover uma cultura de cuidado e acolhimento. A saúde mental deve ser tratada com a mesma importância que a saúde física.`
         };
 
+        const redacoesHumanizadas = {
+            meioAmbiente: `Tema: Meio Ambiente
+
+Introdução:
+Cuidar do meio ambiente é coisa séria e todo mundo tem que fazer sua parte. A natureza tá sofrendo com poluição e desmatamento, e isso afeta a gente e os animais.
+
+Desenvolvimento:
+Problemas como lixo jogado no lugar errado e o calor do planeta aumentando estão aí pra gente ver. Cada um pode ajudar, seja reciclando, economizando água ou plantando uma árvore.
+
+Conclusão:
+Se a gente se unir e fizer a nossa parte, dá pra garantir que as futuras gerações tenham um planeta legal pra viver.`,
+
+            tecnologia: `Tema: Tecnologia e Sociedade
+
+Introdução:
+A tecnologia mudou tudo na nossa vida, né? Facilita bastante, mas também tem seus problemas, como a gente ficar viciado no celular ou se preocupar com privacidade.
+
+Desenvolvimento:
+As redes sociais juntam a galera, mas às vezes deixam a gente meio ansioso comparando a vida com a dos outros. E a máquina substituindo trabalho? Isso exige que a gente se prepare mais.
+
+Conclusão:
+O lance é usar a tecnologia com consciência, pra ajudar e não atrapalhar nossa vida.`,
+
+            educacao: `Tema: Educação no Brasil
+
+Introdução:
+Educação é a base pra gente crescer como país. Mas aqui no Brasil ainda falta investimento e muito aluno sofre com escola ruim.
+
+Desenvolvimento:
+Muita escola pública não tem estrutura boa e os professores não recebem o valor que merecem. Isso dificulta o aprendizado e piora as diferenças entre as pessoas.
+
+Conclusão:
+Por isso, é importante que o governo e a sociedade invistam de verdade em educação, pra todo mundo ter chance de aprender e melhorar de vida.`,
+
+            saudeMental: `Tema: Saúde Mental
+
+Introdução:
+Hoje em dia a saúde mental tá ganhando mais atenção, o que é ótimo. Com a vida corrida e pressão, muita gente sofre com ansiedade e tristeza.
+
+Desenvolvimento:
+Pressão na escola, trabalho complicado e ficar grudado no celular podem deixar a cabeça da gente cansada. É importante ter acesso a ajuda psicológica e falar sobre isso sem medo.
+
+Conclusão:
+Vamos cuidar da mente como cuidamos do corpo, com carinho e atenção. Saúde mental é coisa séria!`
+        };
+
         function gerarRedacao() {
             const tema = document.getElementById("tema").value;
-            const texto = redacoes[tema] || "Tema não encontrado.";
-            document.getElementById("output").innerText = texto;
+            const humanizar = document.getElementById("humanizar").checked;
+            const texto = humanizar ? redacoesHumanizadas[tema] : redacoes[tema];
+            document.getElementById("output").innerText = texto || "Tema não encontrado.";
         }
 
         function copiarRedacao() {
