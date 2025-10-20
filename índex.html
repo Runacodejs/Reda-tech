@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reda Tech</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        textarea {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+            min-height: 150px;
+        }
+        .btn-generate, .btn-humanize, .btn-clear {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+        }
+        .btn-generate {
+            background-color: #007bff;
+            color: #fff;
+        }
+        .btn-humanize {
+            background-color: #28a745;
+            color: #fff;
+        }
+        .btn-clear {
+            background-color: #dc3545;
+            color: #fff;
+        }
+        .btn-generate:hover {
+            background-color: #0056b3;
+        }
+        .btn-humanize:hover {
+            background-color: #218838;
+        }
+        .btn-clear:hover {
+            background-color: #c82333;
+        }
+        #resultado {
+            margin-top: 30px;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            background-color: #fafafa;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Reda Tech</h1>
+        
+        <div class="form-group">
+            <label for="temaInput">Digite o tema da redação:</label>
+            <input type="text" id="temaInput" placeholder="Ex: A importância da educação online" style="width: 100%; padding: 10px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px;">
+        </div>
+        
+        <div class="form-group">
+            <label for="modeloInput">Escolha um modelo de redação:</label>
+            <select id="modeloInput" style="width: 100%; padding: 10px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px;">
+                <option value="modelo1">Modelo Básico</option>
+                <option value="modelo2">Modelo Argumentativo</option>
+            </select>
+        </div>
+
+        <button class="btn-generate" onclick="gerarRedacao()">Gerar Redação</button>
+        <button class="btn-humanize" onclick="humanizarRedacao()">Humanizar Redação</button>
+        <button class="btn-clear" onclick="limparTudo()">Apagar Tudo</button>
+        
+        <div id="resultado">
+            <h3 style="text-align: center;">Sua redação aparecerá aqui.</h3>
+        </div>
+    </div>
+
+    <script>
+        let redacaoGerada = '';
+
+        function gerarRedacao() {
+            const tema = document.getElementById('temaInput').value;
+            const modelo = document.getElementById('modeloInput').value;
+            const resultadoDiv = document.getElementById('resultado');
+
+            if (!tema) {
+                resultadoDiv.innerHTML = '<h3 style="color: red; text-align: center;">Por favor, digite um tema.</h3>';
+                return;
+            }
+
+            const modelos = {
+                modelo1: {
+                    introducao: `A discussão sobre ${tema.toLowerCase()} é um tema central na sociedade contemporânea. Nos últimos anos, observa-se um debate crescente sobre os desafios e oportunidades associados a essa questão.`,
+                    desenvolvimento: `Primeiramente, é crucial analisar as principais causas de ${tema.toLowerCase()}. Diversos fatores contribuem para o cenário atual, e é necessário um olhar aprofundado para compreendê-los. Em seguida, as consequências dessa realidade se manifestam de diversas formas, afetando diferentes setores da sociedade.`,
+                    conclusao: `Portanto, para lidar com ${tema.toLowerCase()}, é fundamental adotar medidas que promovam o desenvolvimento sustentável e a equidade social. É preciso que a sociedade, o governo e as instituições trabalhem em conjunto para construir um futuro mais justo.`,
+                },
+                modelo2: {
+                    introducao: `A questão de ${tema.toLowerCase()} tem provocado intensos debates, revelando a complexidade do problema e a diversidade de perspectivas. É notável que, embora haja avanços, a situação ainda exige atenção e soluções eficazes.`,
+                    desenvolvimento: `Um dos principais argumentos contrários a essa questão reside na crítica a certas práticas e resultados. Por outro lado, defensores de ${tema.toLowerCase()} destacam os benefícios e as transformações positivas que podem ser alcançadas.`,
+                    conclusao: `Diante do exposto, é evidente que a superação das dificuldades relacionadas a ${tema.toLowerCase()} requer uma abordagem multifacetada. A conscientização social e a implementação de políticas públicas efetivas são passos essenciais para transformar esse cenário.`,
+                },
+            };
+
+            const modeloEscolhido = modelos[modelo];
+            
+            redacaoGerada = `${modeloEscolhido.introducao}\n\n${modeloEscolhido.desenvolvimento}\n\n${modeloEscolhido.conclusao}`;
+            
+            resultadoDiv.innerHTML = `
+                <div style="white-space: pre-wrap;">
+                    <p style="font-weight: bold;">Tema: ${tema}</p>
+                    <hr>
+                    <p><strong>Introdução:</strong></p>
+                    <p>${modeloEscolhido.introducao}</p>
+                    <p><strong>Desenvolvimento:</strong></p>
+                    <p>${modeloEscolhido.desenvolvimento}</p>
+                    <p><strong>Conclusão:</strong></p>
+                    <p>${modeloEscolhido.conclusao}</p>
+                </div>
+            `;
+        }
+
+        function humanizarRedacao() {
+            if (!redacaoGerada) {
+                alert('Primeiro, gere uma redação para humanizar.');
+                return;
+            }
+
+            const resultadoDiv = document.getElementById('resultado');
+            let textoHumanizado = redacaoGerada;
+            
+            textoHumanizado = textoHumanizado.replace(/é crucial analisar/g, 'é importante observar');
+            textoHumanizado = textoHumanizado.replace(/é fundamental adotar/g, 'é necessário implementar');
+            textoHumanizado = textoHumanizado.replace(/diversos fatores contribuem/g, 'vários elementos contribuem');
+            textoHumanizado = textoHumanizado.replace(/para lidar com/g, 'para enfrentar');
+            textoHumanizado = textoHumanizado.replace(/construir um futuro mais justo/g, 'desenvolver um futuro mais justo e igualitário');
+            textoHumanizado = textoHumanizado.replace(/em seguida,/g, 'além disso,');
+
+            resultadoDiv.innerHTML = `
+                <div style="white-space: pre-wrap;">
+                    <p style="font-weight: bold;">Redação Humanizada:</p>
+                    <hr>
+                    <p>${textoHumanizado.replace(/\n\n/g, '</p><p>')}</p>
+                </div>
+            `;
+        }
+
+        function limparTudo() {
+            document.getElementById('temaInput').value = '';
+            redacaoGerada = '';
+            document.getElementById('resultado').innerHTML = '<h3 style="text-align: center;">Sua redação aparecerá aqui.</h3>';
+            document.getElementById('modeloInput').value = 'modelo1';
+        }
+    </script>
+</body>
+</html>
