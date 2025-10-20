@@ -160,103 +160,56 @@
     </footer>
 
     <script>
-        const redacoes = {
-            meioAmbiente: `Tema: Meio Ambiente
-
-Introdução:
-A preservação do meio ambiente é um dos maiores desafios enfrentados pela sociedade contemporânea. A degradação dos recursos naturais, impulsionada pelo consumo excessivo e pelo crescimento industrial desordenado, coloca em risco o equilíbrio ecológico do planeta.
-
-Desenvolvimento:
-A poluição, o desmatamento e o aquecimento global são problemas evidentes que demonstram a urgência de ações sustentáveis. Governos, empresas e cidadãos têm um papel crucial na mudança desse cenário, seja por meio de políticas públicas eficientes, seja por práticas cotidianas conscientes.
-
-Conclusão:
-Portanto, é fundamental repensar nossas atitudes em relação ao meio ambiente. Apenas com o comprometimento coletivo será possível garantir um futuro saudável e equilibrado para as próximas gerações.`,
-
-            tecnologia: `Tema: Tecnologia e Sociedade
-
-Introdução:
-A tecnologia transformou profundamente a forma como vivemos, nos comunicamos e trabalhamos. Embora traga inúmeros benefícios, como praticidade e conectividade, também levanta questões sobre privacidade, dependência digital e exclusão social.
-
-Desenvolvimento:
-As redes sociais, por exemplo, aproximam pessoas, mas também podem gerar comparações prejudiciais à saúde mental. Além disso, a automação de processos pode causar desemprego estrutural, exigindo novas formas de qualificação profissional.
-
-Conclusão:
-Dessa forma, é necessário buscar um equilíbrio entre o uso da tecnologia e o bem-estar humano, promovendo uma inclusão digital consciente e sustentável para toda a sociedade.`,
-
-            educacao: `Tema: Educação no Brasil
-
-Introdução:
-A educação é um dos pilares fundamentais para o desenvolvimento de qualquer nação. No Brasil, no entanto, o sistema educacional ainda enfrenta desafios significativos, como a falta de investimentos e a desigualdade de acesso.
-
-Desenvolvimento:
-Escolas públicas muitas vezes operam com infraestrutura precária e professores desvalorizados. Essa realidade compromete o aprendizado dos estudantes e amplia as desigualdades sociais. Investir em educação de qualidade é investir no futuro do país.
-
-Conclusão:
-Portanto, é urgente a formulação de políticas públicas que valorizem a educação e garantam condições adequadas para alunos e professores, promovendo uma sociedade mais justa e preparada.`,
-
-            saudeMental: `Tema: Saúde Mental
-
-Introdução:
-A saúde mental, por muito tempo negligenciada, vem ganhando destaque nas discussões sociais. Em um mundo cada vez mais acelerado e competitivo, problemas como ansiedade e depressão se tornaram comuns, especialmente entre os jovens.
-
-Desenvolvimento:
-Fatores como pressão acadêmica, instabilidade no mercado de trabalho e uso excessivo de redes sociais contribuem para o adoecimento emocional. É fundamental que políticas públicas garantam acesso a atendimento psicológico gratuito e de qualidade.
-
-Conclusão:
-Em vista disso, é necessário romper com o estigma que cerca as doenças mentais e promover uma cultura de cuidado e acolhimento. A saúde mental deve ser tratada com a mesma importância que a saúde física.`
-        };
-
-        const redacoesHumanizadas = {
-            meioAmbiente: `Tema: Meio Ambiente
-
-Introdução:
-Cuidar do meio ambiente é coisa séria e todo mundo tem que fazer sua parte. A natureza tá sofrendo com poluição e desmatamento, e isso afeta a gente e os animais.
-
-Desenvolvimento:
-Problemas como lixo jogado no lugar errado e o calor do planeta aumentando estão aí pra gente ver. Cada um pode ajudar, seja reciclando, economizando água ou plantando uma árvore.
-
-Conclusão:
-Se a gente se unir e fizer a nossa parte, dá pra garantir que as futuras gerações tenham um planeta legal pra viver.`,
-
-            tecnologia: `Tema: Tecnologia e Sociedade
-
-Introdução:
-A tecnologia mudou tudo na nossa vida, né? Facilita bastante, mas também tem seus problemas, como a gente ficar viciado no celular ou se preocupar com privacidade.
-
-Desenvolvimento:
-As redes sociais juntam a galera, mas às vezes deixam a gente meio ansioso comparando a vida com a dos outros. E a máquina substituindo trabalho? Isso exige que a gente se prepare mais.
-
-Conclusão:
-O lance é usar a tecnologia com consciência, pra ajudar e não atrapalhar nossa vida.`,
-
-            educacao: `Tema: Educação no Brasil
-
-Introdução:
-Educação é a base pra gente crescer como país. Mas aqui no Brasil ainda falta investimento e muito aluno sofre com escola ruim.
-
-Desenvolvimento:
-Muita escola pública não tem estrutura boa e os professores não recebem o valor que merecem. Isso dificulta o aprendizado e piora as diferenças entre as pessoas.
-
-Conclusão:
-Por isso, é importante que o governo e a sociedade invistam de verdade em educação, pra todo mundo ter chance de aprender e melhorar de vida.`,
-
-            saudeMental: `Tema: Saúde Mental
-
-Introdução:
-Hoje em dia a saúde mental tá ganhando mais atenção, o que é ótimo. Com a vida corrida e pressão, muita gente sofre com ansiedade e tristeza.
-
-Desenvolvimento:
-Pressão na escola, trabalho complicado e ficar grudado no celular podem deixar a cabeça da gente cansada. É importante ter acesso a ajuda psicológica e falar sobre isso sem medo.
-
-Conclusão:
-Vamos cuidar da mente como cuidamos do corpo, com carinho e atenção. Saúde mental é coisa séria!`
-        };
-
-        function gerarRedacao() {
+        async function gerarRedacao() {
             const tema = document.getElementById("tema").value;
             const humanizar = document.getElementById("humanizar").checked;
-            const texto = humanizar ? redacoesHumanizadas[tema] : redacoes[tema];
-            document.getElementById("output").innerText = texto || "Tema não encontrado.";
+            
+            let prompt = "";
+            switch (tema) {
+                case "meioAmbiente":
+                    prompt = "Escreva uma redação sobre preservação do meio ambiente.";
+                    break;
+                case "tecnologia":
+                    prompt = "Escreva uma redação sobre a relação entre tecnologia e sociedade.";
+                    break;
+                case "educacao":
+                    prompt = "Escreva uma redação sobre a educação no Brasil e seus desafios.";
+                    break;
+                case "saudeMental":
+                    prompt = "Escreva uma redação sobre saúde mental e a importância do cuidado com a mente.";
+                    break;
+                default:
+                    prompt = "Escreva uma redação sobre um tema relevante.";
+                    break;
+            }
+
+            if (humanizar) {
+                prompt += " Use uma linguagem mais informal e acessível.";
+            }
+
+            try {
+                const response = await fetch('https://api.openai.com/v1/completions', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer YOUR_API_KEY'
+                    },
+                    body: JSON.stringify({
+                        model: 'text-davinci-003',
+                        prompt: prompt,
+                        max_tokens: 500,
+                        temperature: 0.7
+                    })
+                });
+
+                const data = await response.json();
+                const textoGerado = data.choices[0].text.trim();
+
+                document.getElementById("output").innerText = textoGerado || "Erro ao gerar a redação.";
+            } catch (error) {
+                console.error("Erro ao gerar redação:", error);
+                document.getElementById("output").innerText = "Houve um erro ao gerar a redação. Tente novamente.";
+            }
         }
 
         function copiarRedacao() {
