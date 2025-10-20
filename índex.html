@@ -2,29 +2,113 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerador de Redação</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        select, button {
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        #output {
+            margin-top: 20px;
+            white-space: pre-line;
+            background: #e9e9e9;
+            padding: 15px;
+            border-radius: 6px;
+        }
+    </style>
 </head>
 <body>
-    <header>
+    <div class="container">
         <h1>Gerador de Redação</h1>
-    </header>
-    <main>
-        <section class="generator-container">
-            <label for="tema">Digite o tema da redação:</label>
-            <input type="text" id="tema" placeholder="Ex: O papel da tecnologia na educação">
-            <button id="gerar-btn">Gerar Redação</button>
-        </section>
-        <section class="result-container">
-            <h2>Sua Redação:</h2>
-            <textarea id="redacao-gerada" rows="15" readonly></textarea>
-            <button id="copiar-btn">Copiar Texto</button>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2025 Gerador de Redação. Todos os direitos reservados.</p>
-    </footer>
-    <script src="script.js"></script>
+
+        <label for="tema">Escolha um tema:</label>
+        <select id="tema">
+            <option value="meioAmbiente">Meio Ambiente</option>
+            <option value="tecnologia">Tecnologia e Sociedade</option>
+            <option value="educacao">Educação no Brasil</option>
+            <option value="saudeMental">Saúde Mental</option>
+        </select>
+
+        <button onclick="gerarRedacao()">Gerar Redação</button>
+
+        <div id="output"></div>
+    </div>
+
+    <script>
+        function gerarRedacao() {
+            const tema = document.getElementById("tema").value;
+            let redacao = "";
+
+            if (tema === "meioAmbiente") {
+                redacao = `Tema: Meio Ambiente
+
+Introdução:
+A preservação do meio ambiente é um dos maiores desafios enfrentados pela sociedade contemporânea. A degradação dos recursos naturais, impulsionada pelo consumo excessivo e pelo crescimento industrial desordenado, coloca em risco o equilíbrio ecológico do planeta.
+
+Desenvolvimento:
+A poluição, o desmatamento e o aquecimento global são problemas evidentes que demonstram a urgência de ações sustentáveis. Governos, empresas e cidadãos têm um papel crucial na mudança desse cenário, seja por meio de políticas públicas eficientes, seja por práticas cotidianas conscientes.
+
+Conclusão:
+Portanto, é fundamental repensar nossas atitudes em relação ao meio ambiente. Apenas com o comprometimento coletivo será possível garantir um futuro saudável e equilibrado para as próximas gerações.`;
+            } else if (tema === "tecnologia") {
+                redacao = `Tema: Tecnologia e Sociedade
+
+Introdução:
+A tecnologia transformou profundamente a forma como vivemos, nos comunicamos e trabalhamos. Embora traga inúmeros benefícios, como praticidade e conectividade, também levanta questões sobre privacidade, dependência digital e exclusão social.
+
+Desenvolvimento:
+As redes sociais, por exemplo, aproximam pessoas, mas também podem gerar comparações prejudiciais à saúde mental. Além disso, a automação de processos pode causar desemprego estrutural, exigindo novas formas de qualificação profissional.
+
+Conclusão:
+Dessa forma, é necessário buscar um equilíbrio entre o uso da tecnologia e o bem-estar humano, promovendo uma inclusão digital consciente e sustentável para toda a sociedade.`;
+            } else if (tema === "educacao") {
+                redacao = `Tema: Educação no Brasil
+
+Introdução:
+A educação é um dos pilares fundamentais para o desenvolvimento de qualquer nação. No Brasil, no entanto, o sistema educacional ainda enfrenta desafios significativos, como a falta de investimentos e a desigualdade de acesso.
+
+Desenvolvimento:
+Escolas públicas muitas vezes operam com infraestrutura precária e professores desvalorizados. Essa realidade compromete o aprendizado dos estudantes e amplia as desigualdades sociais. Investir em educação de qualidade é investir no futuro do país.
+
+Conclusão:
+Portanto, é urgente a formulação de políticas públicas que valorizem a educação e garantam condições adequadas para alunos e professores, promovendo uma sociedade mais justa e preparada.`;
+            } else if (tema === "saudeMental") {
+                redacao = `Tema: Saúde Mental
+
+Introdução:
+A saúde mental, por muito tempo negligenciada, vem ganhando destaque nas discussões sociais. Em um mundo cada vez mais acelerado e competitivo, problemas como ansiedade e depressão se tornaram comuns, especialmente entre os jovens.
+
+Desenvolvimento:
+Fatores como pressão acadêmica, instabilidade no mercado de trabalho e uso excessivo de redes sociais contribuem para o adoecimento emocional. É fundamental que políticas públicas garantam acesso a atendimento psicológico gratuito e de qualidade.
+
+Conclusão:
+Em vista disso, é necessário romper com o estigma que cerca as doenças mentais e promover uma cultura de cuidado e acolhimento. A saúde mental deve ser tratada com a mesma importância que a saúde física.`;
+            }
+
+            document.getElementById("output").innerText = redacao;
+        }
+    </script>
 </body>
 </html>
